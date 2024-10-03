@@ -1,0 +1,46 @@
+# Build Folders
+/bin/
+/obj/
+/Debug/
+/Release/
+
+# Visual Studio Files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+packages/
+
+# Logs
+*.log
+
+# Temporary Files
+*.tmp
+*.temp
+*.temp.*
+
+# Visual Studio Code Files
+.vscode/
+.history/
+
+# Publish Files
+publish/
+
+# Node.js / JavaScript
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+dist/
+build/
+
+# Outros
+*.db
+*.sqlite
+*.db-journal
