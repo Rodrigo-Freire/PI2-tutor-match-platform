@@ -4,7 +4,7 @@
 
 ## Objetivos
 
-- Conectar alunos e professores na CEU Parque Bristol.
+- Conectar alunos e professores no CEU Parque Bristol.
 - Facilitar a criação e gerenciamento de aulas e eventos.
 - Proporcionar uma interface acessível para todos os usuários.
 
@@ -14,9 +14,17 @@ O desenvolvimento da plataforma segue a metodologia ágil, utilizando o Kanban p
 
 ## Tecnologias Utilizadas
 
-- **.NET**: Para o backend e API.
+- **.NET 8.0**: Para o backend e API.
 - **JavaScript**: Para interações no frontend.
 - **HTML/CSS**: Para a construção da interface.
+
+## Estrutura do Projeto
+
+- **wwwroot**: Diretório onde ficam os arquivos estáticos, incluindo CSS, JavaScript e bibliotecas de terceiros.
+  - **css**: Arquivos de estilos da aplicação.
+  - **js**: Scripts JavaScript para interações do frontend.
+  - **lib**: Bibliotecas externas, como jQuery.
+- **Views**: Arquivos HTML relacionados às páginas da aplicação.
 
 ## Funcionalidades
 
@@ -25,14 +33,22 @@ O desenvolvimento da plataforma segue a metodologia ágil, utilizando o Kanban p
 - Sistema de login e criação de conta para alunos e professores.
 - Política de privacidade que garante a segurança dos dados dos usuários.
 
-## Instalação
+## Como Executar o Projeto
 
-Instruções sobre como instalar e configurar o projeto serão adicionadas à medida que o desenvolvimento avançar.
+1. **Pré-requisitos**:
+   - Instalar o .NET SDK 8.0.
+   - Ter o Visual Studio 2022 ou superior instalado.
+
+2. **Clonar o repositório**:
+   ```sh
+   git clone <url_do_repositorio>
+   
+3. **Abrir no Visual Studio:
+   - Abra o projeto no Visual Studio.
+
+4. **Executar localmente:
+   - Selecione "IIS Express" e clique em "Run" para executar a aplicação localmente.
 
 ## Contribuições
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests para melhorar o projeto.
-
-## Licença
-
-Este projeto está sob a licença MIT.
