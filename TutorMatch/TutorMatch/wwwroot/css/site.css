@@ -20,3 +20,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.spacing-header {
+    margin-top: 4rem; /* Ajuste o valor conforme a necessidade */
+}
