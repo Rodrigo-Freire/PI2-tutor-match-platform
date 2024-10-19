@@ -1,65 +1,65 @@
 ﻿@model TutorMatch.Models.RegisterViewModel
 
 @{
-    ViewData["Title"] = "Cadastro de Usuário";
+	ViewData["Title"] = "Cadastro de Usuário";
 }
 
 <h2>Cadastro de Usuário</h2>
 
 <form asp-action="Register" method="post" novalidate>
-    <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" aria-describedby="ajudaNome" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-        <small id="ajudaNome" class="form-text text-muted">Por favor, insira seu nome completo.</small>
-    </div>
+	<div class="form-group">
+		<label asp-for="Name" class="control-label"></label>
+		<input asp-for="Name" class="form-control" aria-describedby="ajudaNome" />
+		<span asp-validation-for="Name" class="text-danger"></span>
+		<small id="ajudaNome" class="form-text text-muted">Por favor, insira seu nome completo.</small>
+	</div>
 
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" aria-describedby="ajudaEmail" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-        <small id="ajudaEmail" class="form-text text-muted">Insira um e-mail válido.</small>
-    </div>
+	<div class="form-group">
+		<label asp-for="Email" class="control-label"></label>
+		<input asp-for="Email" class="form-control" aria-describedby="ajudaEmail" />
+		<span asp-validation-for="Email" class="text-danger"></span>
+		<small id="ajudaEmail" class="form-text text-muted">Insira um e-mail válido.</small>
+	</div>
 
-    <div class="form-group">
-        <label asp-for="Password" class="control-label"></label>
-        <input asp-for="Password" class="form-control" aria-describedby="ajudaSenha" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-        <small id="ajudaSenha" class="form-text text-muted">A senha deve ter pelo menos 6 caracteres.</small>
-    </div>
+	<div class="form-group">
+		<label asp-for="Password" class="control-label"></label>
+		<input asp-for="Password" class="form-control" aria-describedby="ajudaSenha" />
+		<span asp-validation-for="Password" class="text-danger"></span>
+		<small id="ajudaSenha" class="form-text text-muted">A senha deve ter pelo menos 6 caracteres.</small>
+	</div>
 
-    <div class="form-group">
-        <label asp-for="ConfirmPassword" class="control-label"></label>
-        <input asp-for="ConfirmPassword" class="form-control" aria-describedby="ajudaConfirmarSenha" />
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        <small id="ajudaConfirmarSenha" class="form-text text-muted">Confirme sua senha.</small>
-    </div>
+	<div class="form-group">
+		<label asp-for="ConfirmPassword" class="control-label"></label>
+		<input asp-for="ConfirmPassword" class="form-control" aria-describedby="ajudaConfirmarSenha" />
+		<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+		<small id="ajudaConfirmarSenha" class="form-text text-muted">Confirme sua senha.</small>
+	</div>
 
-    <div class="form-group">
-        <label>Tipo de Usuário</label><br />
-        <div class="form-check">
-            <input asp-for="UserType" type="radio" class="form-check-input" value="Aluno" id="tipoUsuarioAluno" />
-            <label class="form-check-label" for="tipoUsuarioAluno">Aluno</label>
-        </div>
-        <div class="form-check">
-            <input asp-for="UserType" type="radio" class="form-check-input" value="Professor" id="tipoUsuarioProfessor" />
-            <label class="form-check-label" for="tipoUsuarioProfessor">Professor</label>
-        </div>
-        <span asp-validation-for="UserType" class="text-danger"></span>
-    </div>
+	<div class="form-group">
+		<label>Tipo de Usuário</label><br />
+		<div class="form-check">
+			<input asp-for="UserType" type="radio" class="form-check-input" value="Aluno" id="tipoUsuarioAluno" />
+			<label class="form-check-label" for="tipoUsuarioAluno">Aluno</label>
+		</div>
+		<div class="form-check">
+			<input asp-for="UserType" type="radio" class="form-check-input" value="Professor" id="tipoUsuarioProfessor" />
+			<label class="form-check-label" for="tipoUsuarioProfessor">Professor</label>
+		</div>
+		<span asp-validation-for="UserType" class="text-danger"></span>
+	</div>
 
-    <div class="form-group mt-3">
-        <!-- Adicionando uma margem superior para o botão -->
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
-    </div>
+	<div class="form-group mt-3">
+		<!-- Adicionando uma margem superior para o botão -->
+		<button type="submit" class="btn btn-primary">Cadastrar</button>
+	</div>
 </form>
 
 <div>
-    <a asp-action="Login">Já possui uma conta? Faça login aqui.</a>
+	<a asp-action="Login">Já possui uma conta? Faça login aqui.</a>
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }
