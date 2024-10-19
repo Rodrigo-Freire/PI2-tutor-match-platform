@@ -76,14 +76,14 @@ namespace TutorMatch.Controllers
 					{
 					return RedirectToAction("Index", "Home"); // Redireciona para a página inicial
 					}
-				ModelState.AddModelError(string.Empty, "Falha ao realizar o login. Verifique seu e-mail e senha.");
+				ModelState.AddModelError(string.Empty, "Parece que houve um problema ao fazer o login. Por favor, verifique seu e-mail e senha e tente novamente.");
 				}
 
 			return View(model); // Se a validação falhar, mostrar a View com os erros
 			}
 
 		// Método para traduzir as mensagens de erro do Identity para pt-br
-		private string TraduzirErro(string descricao)
+		private static string TraduzirErro(string descricao)
 			{
 			switch (descricao)
 				{
