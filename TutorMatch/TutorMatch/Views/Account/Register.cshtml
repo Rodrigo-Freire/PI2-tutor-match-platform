@@ -1,38 +1,46 @@
 ﻿@model TutorMatch.Models.RegisterViewModel
 
-<h2>Cadastro de Usuário</h2>
+@{
+    ViewData["Title"] = "Cadastro";
+}
 
-<form asp-action="Register" method="post">
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Register" method="post" novalidate>
     <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" aria-describedby="nameHelp" />
         <span asp-validation-for="Name" class="text-danger"></span>
+        <small id="nameHelp" class="form-text text-muted">Digite seu nome completo.</small>
     </div>
 
     <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" aria-describedby="emailHelp" />
         <span asp-validation-for="Email" class="text-danger"></span>
+        <small id="emailHelp" class="form-text text-muted">Digite um e-mail válido.</small>
     </div>
 
     <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control" type="password" />
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" class="form-control" aria-describedby="passwordHelp" />
         <span asp-validation-for="Password" class="text-danger"></span>
+        <small id="passwordHelp" class="form-text text-muted">A senha deve ter pelo menos 6 caracteres.</small>
     </div>
 
     <div class="form-group">
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword" class="form-control" type="password" />
+        <label asp-for="ConfirmPassword" class="control-label"></label>
+        <input asp-for="ConfirmPassword" class="form-control" aria-describedby="confirmPasswordHelp" />
         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        <small id="confirmPasswordHelp" class="form-text text-muted">Confirme sua senha.</small>
     </div>
 
     <div class="form-group">
-        <label asp-for="UserType">Tipo de Usuário</label>
+        <label asp-for="UserType" class="control-label"></label>
         <select asp-for="UserType" class="form-control">
-            <option value="">Selecione o tipo de usuário</option>
-            <option value="Aluno">Aluno</option>
-            <option value="Professor">Professor</option>
+            <option value="">Selecione um tipo de usuário</option>
+            <option value="Student">Aluno</option>
+            <option value="Teacher">Professor</option>
         </select>
         <span asp-validation-for="UserType" class="text-danger"></span>
     </div>
@@ -40,6 +48,6 @@
     <button type="submit" class="btn btn-primary">Cadastrar</button>
 </form>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+<div>
+    <a asp-action="Login">Já possui uma conta? Faça login aqui.</a>
+</div>
