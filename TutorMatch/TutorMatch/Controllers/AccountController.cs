@@ -58,6 +58,30 @@ namespace TutorMatch.Controllers
 			return View(model);
 			}
 
+		// Método GET para exibir a página de login
+		[HttpGet]
+		public IActionResult Login()
+			{
+			return View();
+			}
+
+		// Método POST para processar o login do usuário
+		[HttpPost]
+		public async Task<IActionResult> Login(LoginViewModel model)
+			{
+			if (ModelState.IsValid)
+				{
+				var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+				if (result.Succeeded)
+					{
+					return RedirectToAction("Index", "Home"); // Redireciona para a página inicial
+					}
+				ModelState.AddModelError(string.Empty, "Falha ao realizar o login. Verifique seu e-mail e senha.");
+				}
+
+			return View(model); // Se a validação falhar, mostrar a View com os erros
+			}
+
 		// Método para traduzir as mensagens de erro do Identity para pt-br
 		private string TraduzirErro(string descricao)
 			{
