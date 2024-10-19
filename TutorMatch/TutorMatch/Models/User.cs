@@ -5,7 +5,7 @@ namespace TutorMatch.Models
 	public class User : IdentityUser
 		{
 		// Propriedade correspondente ao campo "Nome" no formulário de cadastro
-		public string Nome { get; set; }
+		public string Name { get; set; }
 
 		// Propriedade correspondente ao campo "Tipo de Usuário"
 		public string UserType { get; set; }
