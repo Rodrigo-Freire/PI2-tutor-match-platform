@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TutorMatch.Data;
-using TutorMatch.Models; // Adicionar o namespace para a classe User
+using TutorMatch.Models; // Certifique-se de que a classe User está aqui
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+	?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -29,8 +30,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 	// Configurações de usuário
 	options.User.RequireUniqueEmail = true;
 })
-	.AddEntityFrameworkStores<ApplicationDbContext>()
-	.AddDefaultTokenProviders();
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
 // Configurar autenticação via cookie
 builder.Services.ConfigureApplicationCookie(options =>
@@ -39,6 +40,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 	options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
+// Adicione os serviços necessários para Razor Pages
+builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -51,7 +54,6 @@ if (app.Environment.IsDevelopment())
 else
 	{
 	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 	}
 
@@ -61,12 +63,12 @@ app.UseStaticFiles();
 app.UseRouting();
 
 // Adicionar autenticação e autorização
-app.UseAuthentication(); // Adiciona essa linha
+app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapRazorPages();
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
 
 app.Run();
