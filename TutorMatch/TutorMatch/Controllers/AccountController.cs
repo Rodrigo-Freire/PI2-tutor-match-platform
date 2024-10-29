@@ -49,7 +49,6 @@ namespace TutorMatch.Controllers
 				// Se houver erros, exibir as mensagens em pt-br
 				foreach (var error in result.Errors)
 					{
-					// Adicionando as mensagens de erro de criação
 					ModelState.AddModelError(string.Empty, TraduzirErro(error.Description));
 					}
 				}
@@ -80,6 +79,15 @@ namespace TutorMatch.Controllers
 				}
 
 			return View(model); // Se a validação falhar, mostrar a View com os erros
+			}
+
+		// Método POST para processar o logout do usuário
+		[HttpPost]
+		[ValidateAntiForgeryToken] // Prevenir ataques CSRF
+		public async Task<IActionResult> Logout()
+			{
+			await _signInManager.SignOutAsync();
+			return RedirectToAction("Index", "Home");
 			}
 
 		// Método para traduzir as mensagens de erro do Identity para pt-br
