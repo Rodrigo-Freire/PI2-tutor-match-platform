@@ -12,6 +12,9 @@ namespace TutorMatch.Data
 			{
 			}
 
+		// Adicionando DbSet para a entidade Aula
+		public DbSet<Aula> Aulas { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 			{
 			base.OnModelCreating(modelBuilder);
@@ -64,6 +67,24 @@ namespace TutorMatch.Data
 			modelBuilder.Entity<IdentityUserToken<string>>()
 				.Property(t => t.UserId)
 				.HasColumnType("varchar(450)");
+
+			// Configurando a entidade Aula
+			modelBuilder.Entity<Aula>()
+				.Property(a => a.Id)
+				.ValueGeneratedOnAdd();
+
+			modelBuilder.Entity<Aula>()
+				.Property(a => a.NomeDaAula)
+				.HasColumnType("varchar(255)"); // ajuste conforme necessário
+
+			modelBuilder.Entity<Aula>()
+				.Property(a => a.LinkDaAula)
+				.HasColumnType("varchar(2048)"); // ajuste conforme necessário
+
+			modelBuilder.Entity<Aula>()
+				.HasOne(a => a.Professor)
+				.WithMany() // Caso um professor possa ter várias aulas
+				.HasForeignKey(a => a.ProfessorId); // Definindo a chave estrangeira
 			}
 		}
 	}
