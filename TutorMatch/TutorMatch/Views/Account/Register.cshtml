@@ -8,48 +8,49 @@
 
 <form asp-action="Register" method="post" novalidate>
 	<div class="form-group">
-		<label asp-for="Name" class="control-label"></label>
-		<input asp-for="Name" class="form-control" aria-describedby="ajudaNome" />
-		<span asp-validation-for="Name" class="text-danger"></span>
+		<label asp-for="Name" class="control-label" id="labelNome"></label>
+		<input asp-for="Name" class="form-control" aria-describedby="ajudaNome" aria-labelledby="labelNome" aria-required="true" />
+		<span asp-validation-for="Name" class="text-danger" role="alert"></span>
 		<small id="ajudaNome" class="form-text text-muted">Por favor, insira seu nome completo.</small>
 	</div>
 
 	<div class="form-group">
-		<label asp-for="Email" class="control-label"></label>
-		<input asp-for="Email" class="form-control" aria-describedby="ajudaEmail" />
-		<span asp-validation-for="Email" class="text-danger"></span>
+		<label asp-for="Email" class="control-label" id="labelEmail"></label>
+		<input asp-for="Email" class="form-control" aria-describedby="ajudaEmail" aria-labelledby="labelEmail" aria-required="true" />
+		<span asp-validation-for="Email" class="text-danger" role="alert"></span>
 		<small id="ajudaEmail" class="form-text text-muted">Insira um e-mail válido.</small>
 	</div>
 
 	<div class="form-group">
-		<label asp-for="Password" class="control-label"></label>
-		<input asp-for="Password" class="form-control" aria-describedby="ajudaSenha" />
-		<span asp-validation-for="Password" class="text-danger"></span>
+		<label asp-for="Password" class="control-label" id="labelSenha"></label>
+		<input asp-for="Password" class="form-control" aria-describedby="ajudaSenha" aria-labelledby="labelSenha" aria-required="true" />
+		<span asp-validation-for="Password" class="text-danger" role="alert"></span>
 		<small id="ajudaSenha" class="form-text text-muted">A senha deve ter pelo menos 6 caracteres.</small>
 	</div>
 
 	<div class="form-group">
-		<label asp-for="ConfirmPassword" class="control-label"></label>
-		<input asp-for="ConfirmPassword" class="form-control" aria-describedby="ajudaConfirmarSenha" />
-		<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+		<label asp-for="ConfirmPassword" class="control-label" id="labelConfirmarSenha"></label>
+		<input asp-for="ConfirmPassword" class="form-control" aria-describedby="ajudaConfirmarSenha" aria-labelledby="labelConfirmarSenha" aria-required="true" />
+		<span asp-validation-for="ConfirmPassword" class="text-danger" role="alert"></span>
 		<small id="ajudaConfirmarSenha" class="form-text text-muted">Confirme sua senha.</small>
 	</div>
 
 	<div class="form-group">
 		<label>Tipo de Usuário</label><br />
-		<div class="form-check">
-			<input asp-for="UserType" type="radio" class="form-check-input" value="Aluno" id="tipoUsuarioAluno" />
-			<label class="form-check-label" for="tipoUsuarioAluno">Aluno</label>
+		<div role="radiogroup" aria-labelledby="labelTipoUsuario">
+			<div class="form-check">
+				<input asp-for="UserType" type="radio" class="form-check-input" value="Aluno" id="tipoUsuarioAluno" aria-required="true" />
+				<label class="form-check-label" for="tipoUsuarioAluno">Aluno</label>
+			</div>
+			<div class="form-check">
+				<input asp-for="UserType" type="radio" class="form-check-input" value="Professor" id="tipoUsuarioProfessor" aria-required="true" />
+				<label class="form-check-label" for="tipoUsuarioProfessor">Professor</label>
+			</div>
 		</div>
-		<div class="form-check">
-			<input asp-for="UserType" type="radio" class="form-check-input" value="Professor" id="tipoUsuarioProfessor" />
-			<label class="form-check-label" for="tipoUsuarioProfessor">Professor</label>
-		</div>
-		<span asp-validation-for="UserType" class="text-danger"></span>
+		<span asp-validation-for="UserType" class="text-danger" role="alert"></span>
 	</div>
 
 	<div class="form-group mt-3">
-		<!-- Adicionando uma margem superior para o botão -->
 		<button type="submit" class="btn btn-primary">Cadastrar</button>
 	</div>
 </form>
