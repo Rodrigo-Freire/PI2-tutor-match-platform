@@ -9,6 +9,21 @@
 		<h1 id="main-heading">Lista de Aulas</h1>
 	</header>
 
+	@* Exibe a mensagem de sucesso, se presente *@
+	@if (TempData["SuccessMessage"] != null)
+		{
+		<div class="alert alert-success" role="alert">
+			@TempData["SuccessMessage"]
+		</div>
+		}
+
+	@if (TempData["ErrorMessage"] != null)
+		{
+		<div class="alert alert-danger" role="alert">
+			@TempData["ErrorMessage"]
+		</div>
+		}
+
 	<main id="main-content" role="main" aria-labelledby="main-heading">
 		<p>
 			<a asp-action="Create" class="btn btn-primary" aria-label="Criar uma nova aula">Criar Nova Aula</a>
@@ -78,5 +93,10 @@
 
 	tbody tr:nth-child(even) {
 		background-color: #ffffff;
+	}
+
+	.alert {
+		margin-top: 20px;
+		text-align: center;
 	}
 </style>

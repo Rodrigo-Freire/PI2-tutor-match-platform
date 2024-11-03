@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using TutorMatch.Models;
 
 namespace TutorMatch.Controllers
 	{
+	[Authorize]
 	public class AulasController : Controller
 		{
 		private readonly ApplicationDbContext _context;
@@ -48,25 +50,47 @@ namespace TutorMatch.Controllers
 		// GET: Aulas/Create
 		public IActionResult Create()
 			{
-			ViewData["ProfessorId"] = new SelectList(_context.Users, "Id", "Id");
+			var professorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			var usuario = _context.Users.Find(professorId);
+			
+			ViewBag.ProfessorName = usuario?.Name;
+			ViewBag.ProfessorId = professorId;
+
+			if (User.FindFirst("UserType")?.Value != "Professor")
+				{
+				TempData["ErrorMessage"] = "Acesso negado. Apenas professores podem criar aulas.";
+				return RedirectToAction("Index");
+				}
+
 			return View();
 			}
 
 		// POST: Aulas/Create
-		// Para proteger contra ataques de overposting, habilite as propriedades específicas que deseja vincular.
-		// Para mais detalhes, veja http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("Id,Data,Hora,NomeDaAula,ProfessorId,LinkDaAula")] Aula aula)
+		public async Task<IActionResult> Create([Bind("Id,Data,Hora,NomeDaAula,LinkDaAula")] Aula aula)
 			{
-			if (ModelState.IsValid)
+			var professorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			// Validação adicional para garantir que o professor está autenticado
+			if (string.IsNullOrEmpty(professorId))
 				{
-				_context.Add(aula);
-				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(Index));
+				ModelState.AddModelError(string.Empty, "Erro: Usuário não autenticado.");
+				return View(aula);
 				}
-			ViewData["ProfessorId"] = new SelectList(_context.Users, "Id", "Id", aula.ProfessorId);
-			return View(aula);
+
+			if (!ModelState.IsValid)
+				{
+				return View(aula);
+				}
+
+			aula.ProfessorId = professorId;
+
+			_context.Add(aula);
+			await _context.SaveChangesAsync();
+
+			TempData["SuccessMessage"] = "Aula criada com sucesso!";
+			return RedirectToAction(nameof(Index));
 			}
 
 		// GET: Aulas/Edit/5
@@ -82,13 +106,12 @@ namespace TutorMatch.Controllers
 				{
 				return NotFound();
 				}
-			ViewData["ProfessorId"] = new SelectList(_context.Users, "Id", "Id", aula.ProfessorId);
+
+			ViewData["ProfessorId"] = new SelectList(_context.Users, "Id", "Name", aula.ProfessorId);
 			return View(aula);
 			}
 
 		// POST: Aulas/Edit/5
-		// Para proteger contra ataques de overposting, habilite as propriedades específicas que deseja vincular.
-		// Para mais detalhes, veja http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Edit(int id, [Bind("Id,Data,Hora,NomeDaAula,ProfessorId,LinkDaAula")] Aula aula)
@@ -98,28 +121,32 @@ namespace TutorMatch.Controllers
 				return NotFound();
 				}
 
-			if (ModelState.IsValid)
+			if (!ModelState.IsValid)
 				{
-				try
-					{
-					_context.Update(aula);
-					await _context.SaveChangesAsync();
-					}
-				catch (DbUpdateConcurrencyException)
-					{
-					if (!AulaExists(aula.Id))
-						{
-						return NotFound();
-						}
-					else
-						{
-						throw;
-						}
-					}
-				return RedirectToAction(nameof(Index));
+				ViewData["ProfessorId"] = new SelectList(_context.Users, "Id", "Name", aula.ProfessorId);
+				return View(aula);
 				}
-			ViewData["ProfessorId"] = new SelectList(_context.Users, "Id", "Id", aula.ProfessorId);
-			return View(aula);
+
+			try
+				{
+				_context.Update(aula);
+				await _context.SaveChangesAsync();
+
+				TempData["SuccessMessage"] = "Aula editada com sucesso!";
+				}
+			catch (DbUpdateConcurrencyException)
+				{
+				if (!AulaExists(aula.Id))
+					{
+					return NotFound();
+					}
+				else
+					{
+					throw;
+					}
+				}
+
+			return RedirectToAction(nameof(Index));
 			}
 
 		// GET: Aulas/Delete/5
@@ -150,9 +177,11 @@ namespace TutorMatch.Controllers
 			if (aula != null)
 				{
 				_context.Aulas.Remove(aula);
+				await _context.SaveChangesAsync();
+
+				TempData["SuccessMessage"] = "Aula excluída com sucesso!";
 				}
 
-			await _context.SaveChangesAsync();
 			return RedirectToAction(nameof(Index));
 			}
 

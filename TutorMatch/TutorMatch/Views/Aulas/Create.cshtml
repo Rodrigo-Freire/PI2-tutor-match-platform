@@ -1,52 +1,86 @@
 ﻿@model TutorMatch.Models.Aula
+@using System.Security.Claims
 
 @{
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Criar Aula";
 }
 
-<h1>Create</h1>
+<h2>Criar Aula</h2>
 
-<h4>Aula</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Data" class="control-label"></label>
-                <input asp-for="Data" class="form-control" />
-                <span asp-validation-for="Data" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Hora" class="control-label"></label>
-                <input asp-for="Hora" class="form-control" />
-                <span asp-validation-for="Hora" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NomeDaAula" class="control-label"></label>
-                <input asp-for="NomeDaAula" class="form-control" />
-                <span asp-validation-for="NomeDaAula" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProfessorId" class="control-label"></label>
-                <select asp-for="ProfessorId" class ="form-control" asp-items="ViewBag.ProfessorId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="LinkDaAula" class="control-label"></label>
-                <input asp-for="LinkDaAula" class="form-control" />
-                <span asp-validation-for="LinkDaAula" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<form asp-action="Create" method="post" novalidate>
+	<div class="form-group">
+		<label asp-for="Data" class="control-label" id="labelData">Data da Aula</label>
+		<input asp-for="Data" class="form-control" aria-describedby="ajudaData" aria-labelledby="labelData" aria-required="true" />
+		<span asp-validation-for="Data" class="text-danger" role="alert"></span>
+		<small id="ajudaData" class="form-text text-muted">Insira a data da aula no formato adequado.</small>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Hora" class="control-label" id="labelHora">Hora da Aula</label>
+		<input asp-for="Hora" class="form-control" aria-describedby="ajudaHora" aria-labelledby="labelHora" aria-required="true" />
+		<span asp-validation-for="Hora" class="text-danger" role="alert"></span>
+		<small id="ajudaHora" class="form-text text-muted">Informe a hora da aula.</small>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="NomeDaAula" class="control-label" id="labelNomeDaAula">Nome da Aula</label>
+		<input asp-for="NomeDaAula" class="form-control" aria-describedby="ajudaNomeDaAula" aria-labelledby="labelNomeDaAula" aria-required="true" />
+		<span asp-validation-for="NomeDaAula" class="text-danger" role="alert"></span>
+		<small id="ajudaNomeDaAula" class="form-text text-muted">Digite um nome descritivo para a aula.</small>
+	</div>
+
+	<div class="form-group">
+		<label for="ProfessorId" class="control-label" id="labelProfessor">Professor Responsável</label>
+		<input type="text" class="form-control" id="ProfessorName" value="@ViewBag.ProfessorName" readonly aria-labelledby="labelProfessor" aria-required="true" />
+		<input type="hidden" asp-for="ProfessorId" value="@ViewBag.ProfessorId" />
+		<span asp-validation-for="ProfessorId" class="text-danger" role="alert"></span>
+		<small class="form-text text-muted">O professor responsável pela aula será você.</small>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="LinkDaAula" class="control-label" id="labelLinkDaAula">Link da Aula</label>
+		<input asp-for="LinkDaAula" class="form-control" aria-describedby="ajudaLinkDaAula" aria-labelledby="labelLinkDaAula" aria-required="true" />
+		<span asp-validation-for="LinkDaAula" class="text-danger" role="alert"></span>
+		<small id="ajudaLinkDaAula" class="form-text text-muted">Forneça um link acessível para a aula.</small>
+	</div>
+
+	<div class="form-group mt-4">
+		<button type="submit" class="btn btn-primary">Criar</button>
+	</div>
+</form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+	<a asp-action="Index">Voltar para a Lista</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }
+
+<style>
+	/* Estilização do Skip Link */
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		border: 0;
+	}
+
+	.sr-only-focusable:focus {
+		position: static;
+		width: auto;
+		height: auto;
+		margin: 0;
+		padding: 10px;
+		background-color: #007bff;
+		color: white;
+		text-decoration: none;
+		display: block;
+	}
+</style>

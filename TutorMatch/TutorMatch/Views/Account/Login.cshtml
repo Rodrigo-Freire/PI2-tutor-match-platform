@@ -8,10 +8,20 @@
 	<h1 id="main-heading">@ViewData["Title"]</h1>
 </header>
 
+@if (TempData["ErrorMessage"] != null)
+	{
+	<div class="alert alert-danger" role="alert">
+		@TempData["ErrorMessage"]
+	</div>
+	}
+
+
 <main role="main" aria-labelledby="main-heading">
 	<form asp-action="Login" method="post">
 		<fieldset>
 			<legend class="sr-only">Formulário de login</legend>
+
+			<div asp-validation-summary="All" class="text-danger"></div> <!-- Exibe todos os erros do ModelState -->
 
 			<div class="form-group">
 				<label asp-for="Email" class="form-label">E-mail</label>
