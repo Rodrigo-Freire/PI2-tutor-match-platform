@@ -32,11 +32,14 @@
 				<span asp-validation-for="NomeDaAula" class="text-danger"></span>
 			</div>
 
-@* 			<div class="form-group">
-				<label class="control-label">Professor</label>
-				<input type="hidden" asp-for="ProfessorId" />
-				<p class="form-control-plaintext">@Model.Professor?.Name</p>
-			</div> *@
+			<div class="form-group">
+				<label for="ProfessorId" class="control-label" id="labelProfessor">Professor Responsável</label>
+				<input type="text" class="form-control" id="Professor" value="@ViewBag.ProfessorName" readonly aria-labelledby="labelProfessor" aria-required="true" />
+				<input type="hidden" asp-for="ProfessorId" value="@ViewBag.ProfessorId" />
+				<span asp-validation-for="ProfessorId" class="text-danger" role="alert"></span>
+				<small class="form-text text-muted">O professor responsável pela aula será você.</small>
+			</div>
+
 
 			<div class="form-group">
 				<label asp-for="LinkDaAula" class="control-label">Link da Aula</label>
@@ -57,3 +60,4 @@
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
 }
+

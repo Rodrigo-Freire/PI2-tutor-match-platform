@@ -106,6 +106,17 @@ namespace TutorMatch.Controllers
 				{
 				return NotFound();
 				}
+			var professorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			var usuario = _context.Users.Find(professorId);
+
+			if (usuario == null)
+				{
+				TempData["ErrorMessage"] = "Professor não encontrado.";
+				return RedirectToAction("Index");
+				}
+
+			ViewBag.ProfessorName = usuario.Name;
+			ViewBag.ProfessorId = professorId;
 
 			var aula = await _context.Aulas.FindAsync(id);
 			if (aula == null)
@@ -120,12 +131,23 @@ namespace TutorMatch.Controllers
 		// POST: Aulas/Edit/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Edit(int id, [Bind("Id,Data,Hora,NomeDaAula,ProfessorId,LinkDaAula")] Aula aula)
+		public async Task<IActionResult> Edit(int id, [Bind("Id,Data,Hora,NomeDaAula,LinkDaAula,ProfessorId")] Aula aula)
 			{
 			if (id != aula.Id)
 				{
 				return NotFound();
 				}
+
+			var professorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			// Validação adicional para garantir que o ProfessorId esteja associado ao usuário atual
+			if (string.IsNullOrEmpty(professorId))
+				{
+				ModelState.AddModelError(string.Empty, "Erro: Usuário não autenticado.");
+				return View(aula);
+				}
+
+			aula.ProfessorId = professorId;
 
 			if (!ModelState.IsValid)
 				{
@@ -137,7 +159,6 @@ namespace TutorMatch.Controllers
 				{
 				_context.Update(aula);
 				await _context.SaveChangesAsync();
-
 				TempData["SuccessMessage"] = "Aula editada com sucesso!";
 				}
 			catch (DbUpdateConcurrencyException)
