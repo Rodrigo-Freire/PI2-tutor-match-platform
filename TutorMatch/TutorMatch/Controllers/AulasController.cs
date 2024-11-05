@@ -52,6 +52,7 @@ namespace TutorMatch.Controllers
 			{
 			var professorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			var usuario = _context.Users.Find(professorId);
+			var tipoUsuario = usuario.UserType.ToString();
 
 			if (usuario == null)
 				{
@@ -62,7 +63,7 @@ namespace TutorMatch.Controllers
 			ViewBag.ProfessorName = usuario.Name;
 			ViewBag.ProfessorId = professorId;
 
-			if (User.FindFirst("UserType")?.Value != "Professor")
+			if (tipoUsuario != "Professor")
 				{
 				TempData["ErrorMessage"] = "Acesso negado. Apenas professores podem criar aulas.";
 				return RedirectToAction("Index");

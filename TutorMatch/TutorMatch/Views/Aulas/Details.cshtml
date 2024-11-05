@@ -35,7 +35,7 @@
 			<label for="LinkDaAula" class="control-label">Link da Aula:</label>
 		</dt>
 		<dd class="col-sm-10" id="LinkDaAula">
-			@Html.DisplayFor(model => model.LinkDaAula)
+			<a href="@Model.LinkDaAula" target="_blank" aria-label="Acessar aula: @Html.DisplayFor(model => model.NomeDaAula)"> Assistir Aula de @Html.DisplayFor(model => model.NomeDaAula)</a>
 		</dd>
 
 		<dt class="col-sm-2">

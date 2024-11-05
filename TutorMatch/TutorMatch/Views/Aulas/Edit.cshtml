@@ -16,19 +16,22 @@
 
 			<div class="form-group">
 				<label asp-for="Data" class="control-label">Data</label>
-				<input asp-for="Data" class="form-control" />
+				<input asp-for="Data" class="form-control" type="date" />
+				<small class="form-text text-muted">Informe a data da aula no formato DD/MM/AAAA.</small>
 				<span asp-validation-for="Data" class="text-danger"></span>
 			</div>
 
 			<div class="form-group">
 				<label asp-for="Hora" class="control-label">Hora</label>
 				<input asp-for="Hora" class="form-control" />
+				<small class="form-text text-muted">Informe o horário de início da aula (HH:MM).</small>
 				<span asp-validation-for="Hora" class="text-danger"></span>
 			</div>
 
 			<div class="form-group">
 				<label asp-for="NomeDaAula" class="control-label">Nome da Aula</label>
 				<input asp-for="NomeDaAula" class="form-control" />
+				<small class="form-text text-muted">Dê um título claro e breve para a aula.</small>
 				<span asp-validation-for="NomeDaAula" class="text-danger"></span>
 			</div>
 
@@ -36,18 +39,18 @@
 				<label for="ProfessorId" class="control-label" id="labelProfessor">Professor Responsável</label>
 				<input type="text" class="form-control" id="Professor" value="@ViewBag.ProfessorName" readonly aria-labelledby="labelProfessor" aria-required="true" />
 				<input type="hidden" asp-for="ProfessorId" value="@ViewBag.ProfessorId" />
-				<span asp-validation-for="ProfessorId" class="text-danger" role="alert"></span>
 				<small class="form-text text-muted">O professor responsável pela aula será você.</small>
+				<span asp-validation-for="ProfessorId" class="text-danger" role="alert"></span>
 			</div>
-
 
 			<div class="form-group">
 				<label asp-for="LinkDaAula" class="control-label">Link da Aula</label>
 				<input asp-for="LinkDaAula" class="form-control" />
+				<small class="form-text text-muted">Insira o link para a aula online, se houver.</small>
 				<span asp-validation-for="LinkDaAula" class="text-danger"></span>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group mt-4">
 				<input type="submit" value="Salvar" class="btn btn-primary" />
 				<a asp-action="Index" class="btn btn-secondary ml-2">Voltar para a Lista</a>
 			</div>

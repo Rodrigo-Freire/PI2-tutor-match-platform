@@ -10,6 +10,7 @@ namespace TutorMatch.Models
 		private DateTime _data;
 
 		[Required(ErrorMessage = "A data da aula é obrigatória.")]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
 		public DateTime Data
 			{
 			get => _data;

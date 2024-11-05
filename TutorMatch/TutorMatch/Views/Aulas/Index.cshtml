@@ -32,11 +32,12 @@
 			<caption id="aulas-heading">Tabela com a lista de aulas disponíveis</caption>
 			<thead>
 				<tr>
-					<th scope="col">Data da Aula</th>
-					<th scope="col">Hora da Aula</th>
-					<th scope="col">Nome da Aula</th>
-					<th scope="col">Link da Aula</th>
-					<th scope="col">Professor Responsável</th>
+					<th style="white-space: nowrap;" scope="col">Data da Aula</th>
+					<th style="white-space: nowrap;" scope="col">Hora da Aula</th>
+					<th style="white-space: nowrap;" scope="col">Nome da Aula</th>
+					<th style="white-space: nowrap;" scope="col">Professor Responsável</th>
+					<th style="white-space: nowrap;" scope="col">Link da Aula</th>
+					<th style="white-space: nowrap;" scope="col">Ações</th>
 					<th scope="col" aria-label="Ações"></th>
 				</tr>
 			</thead>
@@ -50,16 +51,16 @@
 						<td>
 							@Html.DisplayFor(modelItem => item.Hora)
 						</td>
-						<td>
+						<td style="white-space: nowrap;">
 							@Html.DisplayFor(modelItem => item.NomeDaAula)
 						</td>
-						<td>
-							<a href="@item.LinkDaAula" target="_blank" aria-label="Acessar aula: @item.NomeDaAula">@item.LinkDaAula</a>
-						</td>
-						<td>
+						<td style="white-space: nowrap;">
 							@Html.DisplayFor(modelItem => item.Professor.Name) <!-- Supondo que o Professor tem uma propriedade Nome -->
 						</td>
-						<td>
+						<td style="white-space: nowrap;">
+							<a href="@item.LinkDaAula" target="_blank" aria-label="Acessar aula: @item.NomeDaAula"> Assistir Aula de @item.NomeDaAula</a>
+						</td>
+						<td style="white-space: nowrap;">
 							<a asp-action="Edit" asp-route-id="@item.Id" aria-label="Editar aula: @item.NomeDaAula">Editar</a> |
 							<a asp-action="Details" asp-route-id="@item.Id" aria-label="Detalhes da aula: @item.NomeDaAula">Detalhes</a> |
 							<a asp-action="Delete" asp-route-id="@item.Id" aria-label="Excluir aula: @item.NomeDaAula">Excluir</a>
