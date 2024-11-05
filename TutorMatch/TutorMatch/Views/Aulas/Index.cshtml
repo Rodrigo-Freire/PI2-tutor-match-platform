@@ -57,7 +57,7 @@
 							<a href="@item.LinkDaAula" target="_blank" aria-label="Acessar aula: @item.NomeDaAula">@item.LinkDaAula</a>
 						</td>
 						<td>
-							@Html.DisplayFor(modelItem => item.Professor.Id) <!-- Supondo que o Professor tem uma propriedade Nome -->
+							@Html.DisplayFor(modelItem => item.Professor.Name) <!-- Supondo que o Professor tem uma propriedade Nome -->
 						</td>
 						<td>
 							<a asp-action="Edit" asp-route-id="@item.Id" aria-label="Editar aula: @item.NomeDaAula">Editar</a> |

@@ -31,7 +31,7 @@
 
 	<div class="form-group">
 		<label for="ProfessorId" class="control-label" id="labelProfessor">Professor Responsável</label>
-		<input type="text" class="form-control" id="ProfessorName" value="@ViewBag.ProfessorName" readonly aria-labelledby="labelProfessor" aria-required="true" />
+		<input type="text" class="form-control" id="Professor" value="@ViewBag.ProfessorName" readonly aria-labelledby="labelProfessor" aria-required="true" />
 		<input type="hidden" asp-for="ProfessorId" value="@ViewBag.ProfessorId" />
 		<span asp-validation-for="ProfessorId" class="text-danger" role="alert"></span>
 		<small class="form-text text-muted">O professor responsável pela aula será você.</small>

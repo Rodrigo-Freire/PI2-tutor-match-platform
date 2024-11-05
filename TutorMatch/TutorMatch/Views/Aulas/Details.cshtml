@@ -1,48 +1,78 @@
 ﻿@model TutorMatch.Models.Aula
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Detalhes da Aula";
 }
 
-<h1>Details</h1>
+<h1>Detalhes da Aula</h1>
 
 <div>
-    <h4>Aula</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Data)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Data)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Hora)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Hora)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeDaAula)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NomeDaAula)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LinkDaAula)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LinkDaAula)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Professor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Professor.Id)
-        </dd>
-    </dl>
+	<h4>Informações da Aula</h4>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			<label for="Data" class="control-label">Data da Aula:</label>
+		</dt>
+		<dd class="col-sm-10" id="Data">
+			@Html.DisplayFor(model => model.Data)
+		</dd>
+
+		<dt class="col-sm-2">
+			<label for="Hora" class="control-label">Hora da Aula:</label>
+		</dt>
+		<dd class="col-sm-10" id="Hora">
+			@Html.DisplayFor(model => model.Hora)
+		</dd>
+
+		<dt class="col-sm-2">
+			<label for="NomeDaAula" class="control-label">Nome da Aula:</label>
+		</dt>
+		<dd class="col-sm-10" id="NomeDaAula">
+			@Html.DisplayFor(model => model.NomeDaAula)
+		</dd>
+
+		<dt class="col-sm-2">
+			<label for="LinkDaAula" class="control-label">Link da Aula:</label>
+		</dt>
+		<dd class="col-sm-10" id="LinkDaAula">
+			@Html.DisplayFor(model => model.LinkDaAula)
+		</dd>
+
+		<dt class="col-sm-2">
+			<label for="Professor" class="control-label">Professor:</label>
+		</dt>
+		<dd class="col-sm-10" id="Professor">
+			@Html.DisplayFor(model => model.Professor.Name)
+		</dd>
+	</dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+	<a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary" aria-label="Editar Aula">Editar</a>
+	<a asp-action="Index" class="btn btn-secondary" aria-label="Voltar para a Lista de Aulas">Voltar para a Lista</a>
 </div>
+
+<style>
+	/* Estilização do Skip Link */
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		border: 0;
+	}
+
+	.sr-only-focusable:focus {
+		position: static;
+		width: auto;
+		height: auto;
+		margin: 0;
+		padding: 10px;
+		background-color: #007bff;
+		color: white;
+		text-decoration: none;
+		display: block;
+	}
+</style>

@@ -7,8 +7,14 @@ namespace TutorMatch.Models
 		{
 		public int Id { get; set; }
 
+		private DateTime _data;
+
 		[Required(ErrorMessage = "A data da aula é obrigatória.")]
-		public required DateTime Data { get; set; }
+		public DateTime Data
+			{
+			get => _data;
+			set => _data = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+			}
 
 		[Required(ErrorMessage = "A hora da aula é obrigatória.")]
 		public required TimeSpan Hora { get; set; }
@@ -23,7 +29,6 @@ namespace TutorMatch.Models
 		[Url(ErrorMessage = "Formato de URL inválido.")]
 		public required string LinkDaAula { get; set; }
 
-		[Required(ErrorMessage = "O professor é obrigatório.")]
-		public required virtual User Professor { get; set; } // Navegação para a classe User
+		public virtual User? Professor { get; set; } // Navegação para a classe User
 		}
 	}

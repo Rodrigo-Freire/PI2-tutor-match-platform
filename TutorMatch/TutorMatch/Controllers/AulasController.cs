@@ -52,8 +52,14 @@ namespace TutorMatch.Controllers
 			{
 			var professorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			var usuario = _context.Users.Find(professorId);
-			
-			ViewBag.ProfessorName = usuario?.Name;
+
+			if (usuario == null)
+				{
+				TempData["ErrorMessage"] = "Professor não encontrado.";
+				return RedirectToAction("Index");
+				}
+
+			ViewBag.ProfessorName = usuario.Name;
 			ViewBag.ProfessorId = professorId;
 
 			if (User.FindFirst("UserType")?.Value != "Professor")
@@ -68,7 +74,7 @@ namespace TutorMatch.Controllers
 		// POST: Aulas/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("Id,Data,Hora,NomeDaAula,LinkDaAula")] Aula aula)
+		public async Task<IActionResult> Create([Bind("Id,Data,Hora,NomeDaAula,LinkDaAula,ProfessorId")] Aula aula)
 			{
 			var professorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 

@@ -1,51 +1,81 @@
 ﻿@model TutorMatch.Models.Aula
 
 @{
-    ViewData["Title"] = "Delete";
+	ViewData["Title"] = "Excluir Aula";
 }
 
-<h1>Delete</h1>
+<h1>Excluir Aula</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Tem certeza de que deseja excluir esta aula?</h3>
 <div>
-    <h4>Aula</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Data)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Data)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Hora)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Hora)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeDaAula)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NomeDaAula)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LinkDaAula)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LinkDaAula)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Professor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Professor.Id)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+	<h4>Detalhes da Aula</h4>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			<label for="Data" class="control-label">Data da Aula:</label>
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Data)
+		</dd>
+
+		<dt class="col-sm-2">
+			<label for="Hora" class="control-label">Hora da Aula:</label>
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Hora)
+		</dd>
+
+		<dt class="col-sm-2">
+			<label for="NomeDaAula" class="control-label">Nome da Aula:</label>
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.NomeDaAula)
+		</dd>
+
+		<dt class="col-sm-2">
+			<label for="LinkDaAula" class="control-label">Link da Aula:</label>
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.LinkDaAula)
+		</dd>
+
+		<dt class="col-sm-2">
+			<label for="Professor" class="control-label">Professor:</label>
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Professor.Name)
+		</dd>
+	</dl>
+
+	<form asp-action="Delete" method="post" aria-label="Formulário de exclusão de aula">
+		<input type="hidden" asp-for="Id" />
+		<input type="submit" value="Excluir" class="btn btn-danger" aria-label="Confirmar exclusão da aula" />
+		<a asp-action="Index" class="btn btn-secondary" aria-label="Voltar para a lista de aulas">Voltar para a Lista</a>
+	</form>
 </div>
+
+<style>
+	/* Estilização do Skip Link */
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		border: 0;
+	}
+
+	.sr-only-focusable:focus {
+		position: static;
+		width: auto;
+		height: auto;
+		margin: 0;
+		padding: 10px;
+		background-color: #007bff;
+		color: white;
+		text-decoration: none;
+		display: block;
+	}
+</style>
