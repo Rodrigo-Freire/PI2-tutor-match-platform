@@ -15,7 +15,6 @@
 	</div>
 	}
 
-
 <main role="main" aria-labelledby="main-heading">
 	<form asp-action="Login" method="post">
 		<fieldset>
@@ -26,12 +25,14 @@
 			<div class="form-group">
 				<label asp-for="Email" class="form-label">E-mail</label>
 				<input asp-for="Email" class="form-control" aria-required="true" />
+				<small class="form-text text-muted">Digite seu e-mail</small> <!-- Instrução adicional -->
 				<span asp-validation-for="Email" class="text-danger" aria-live="polite"></span>
 			</div>
 
 			<div class="form-group">
 				<label asp-for="Password" class="form-label">Senha</label>
 				<input asp-for="Password" class="form-control" type="password" aria-required="true" />
+				<small class="form-text text-muted">Digite sua senha</small> <!-- Instrução adicional -->
 				<span asp-validation-for="Password" class="text-danger" aria-live="polite"></span>
 			</div>
 
@@ -40,12 +41,13 @@
 				<label asp-for="RememberMe" class="form-check-label">Lembrar-me</label>
 			</div>
 
-			<button type="submit" class="btn btn-primary" aria-label="Clique para fazer login">Entrar</button>
+			<!-- Botão com margem para facilitar a navegação -->
+			<button type="submit" class="btn btn-primary mt-3" aria-label="Clique para fazer login">Entrar</button>
 		</fieldset>
 	</form>
 
 	<div>
-		<p>Não tem uma conta? <a asp-controller="Account" asp-action="Register" aria-label="Criar uma conta">Cadastre-se aqui</a>.</p>
+		<p class="text-muted">Não tem uma conta? <a asp-controller="Account" asp-action="Register" aria-label="Criar uma conta">Cadastre-se aqui</a>.</p>
 	</div>
 </main>
 
