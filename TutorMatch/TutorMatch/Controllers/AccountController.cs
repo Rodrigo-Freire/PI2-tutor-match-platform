@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using TutorMatch.Models;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace TutorMatch.Controllers
 	{
@@ -70,12 +72,32 @@ namespace TutorMatch.Controllers
 			{
 			if (ModelState.IsValid)
 				{
-				var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-				if (result.Succeeded)
+				// Verifica se o usuário existe
+				var user = await _userManager.FindByEmailAsync(model.Email);
+				if (user != null)
 					{
-					return RedirectToAction("Index", "Home"); // Redireciona para a página inicial
+					// Verifica a senha
+					var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: false);
+					if (result.Succeeded)
+						{
+						// Cria uma lista de claims com o tipo de usuário
+						var claims = new List<Claim>
+						{
+							new Claim(ClaimTypes.Name, user.UserName),
+							new Claim("UserType", user.UserType) // Adiciona a claim UserType
+                        };
+
+						var claimsIdentity = new ClaimsIdentity(claims, "Login");
+
+						// Realiza o login com as claims personalizadas
+						await _signInManager.SignInWithClaimsAsync(user, isPersistent: model.RememberMe, claims);
+
+						return RedirectToAction("Index", "Home"); // Redireciona para a página inicial
+						}
 					}
-				ModelState.AddModelError(string.Empty, "Parece que houve um problema ao fazer o login. Por favor, verifique seu e-mail e senha e tente novamente.");
+
+				// Usando TempData para armazenar a mensagem de erro
+				TempData["ErrorMessage"] = "Parece que houve um problema ao fazer o login. Por favor, verifique seu e-mail e senha e tente novamente.";
 				}
 
 			return View(model); // Se a validação falhar, mostrar a View com os erros
@@ -87,6 +109,7 @@ namespace TutorMatch.Controllers
 		public async Task<IActionResult> Logout()
 			{
 			await _signInManager.SignOutAsync();
+			TempData["ErrorMessage"] = "Você foi desconectado com sucesso."; // Mensagem de logout
 			return RedirectToAction("Index", "Home");
 			}
 

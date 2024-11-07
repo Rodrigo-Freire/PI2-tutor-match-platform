@@ -1,0 +1,103 @@
+﻿@model IEnumerable<TutorMatch.Models.Aula>
+
+@{
+	ViewData["Title"] = "Lista de Aulas";
+}
+
+<div class="container">
+	<header>
+		<h1 id="main-heading">Lista de Aulas</h1>
+	</header>
+
+	@* Exibe a mensagem de sucesso, se presente *@
+	@if (TempData["SuccessMessage"] != null)
+		{
+		<div class="alert alert-success" role="alert">
+			@TempData["SuccessMessage"]
+		</div>
+		}
+
+	@if (TempData["ErrorMessage"] != null)
+		{
+		<div class="alert alert-danger" role="alert">
+			@TempData["ErrorMessage"]
+		</div>
+		}
+
+	<main id="main-content" role="main" aria-labelledby="main-heading">
+		<p>
+			<a asp-action="Create" class="btn btn-primary" aria-label="Criar uma nova aula">Criar Nova Aula</a>
+		</p>
+		<table class="table" aria-labelledby="aulas-heading">
+			<caption id="aulas-heading">Tabela com a lista de aulas disponíveis</caption>
+			<thead>
+				<tr>
+					<th style="white-space: nowrap;" scope="col">Data da Aula</th>
+					<th style="white-space: nowrap;" scope="col">Hora da Aula</th>
+					<th style="white-space: nowrap;" scope="col">Nome da Aula</th>
+					<th style="white-space: nowrap;" scope="col">Professor Responsável</th>
+					<th style="white-space: nowrap;" scope="col">Link da Aula</th>
+					<th style="white-space: nowrap;" scope="col">Ações</th>
+					<th scope="col" aria-label="Ações"></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+					{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.Data)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Hora)
+						</td>
+						<td style="white-space: nowrap;">
+							@Html.DisplayFor(modelItem => item.NomeDaAula)
+						</td>
+						<td style="white-space: nowrap;">
+							@Html.DisplayFor(modelItem => item.Professor.Name) <!-- Supondo que o Professor tem uma propriedade Nome -->
+						</td>
+						<td style="white-space: nowrap;">
+							<a href="@item.LinkDaAula" target="_blank" aria-label="Acessar aula: @item.NomeDaAula"> Assistir Aula de @item.NomeDaAula</a>
+						</td>
+						<td style="white-space: nowrap;">
+							<a asp-action="Edit" asp-route-id="@item.Id" aria-label="Editar aula: @item.NomeDaAula">Editar</a> |
+							<a asp-action="Details" asp-route-id="@item.Id" aria-label="Detalhes da aula: @item.NomeDaAula">Detalhes</a> |
+							<a asp-action="Delete" asp-route-id="@item.Id" aria-label="Excluir aula: @item.NomeDaAula">Excluir</a>
+						</td>
+					</tr>
+					}
+			</tbody>
+		</table>
+	</main>
+</div>
+
+<style>
+	#main-heading {
+		text-align: center;
+		margin-top: 20px;
+	}
+
+	table {
+		width: 100%;
+		margin-top: 20px;
+	}
+
+	th, td {
+		padding: 8px;
+		text-align: left;
+	}
+
+	tbody tr:nth-child(odd) {
+		background-color: #f9f9f9;
+	}
+
+	tbody tr:nth-child(even) {
+		background-color: #ffffff;
+	}
+
+	.alert {
+		margin-top: 20px;
+		text-align: center;
+	}
+</style>
